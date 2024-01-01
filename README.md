@@ -1,2 +1,10 @@
 # PERSONAL EXPENSE TRACKER WEBApp
-A three-tier implementation of an expense tracker app. The presentation tier was built with html, css and JavaScript, the Application Tier with Python+flask for user registration/login and expenses are stored in snowflake data warehouse for the Data Tier
+A three-tier implementation of an expense tracker
+## Presentation Tier
+The presentation tier was built with html, css and JavaScript
+
+## Application Tier
+The Application Tier with Python+flask for user registration/login connected to MySQL database
+
+## Data Tier
+Makes use of Snowflake Cloud Computing Data Warehouse
