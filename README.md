@@ -9,11 +9,11 @@ School-Group repository created for the development of a Three-tier application,
 
 # PERSONAL EXPENSE TRACKER WEBApp
 A three-tier implementation of an expense tracker
-## Presentation Tier
+## Presentation Tier (FRONTEND)
 The presentation tier was built with html, css and JavaScript
 
-## Application Tier
-The Application Tier with Python+flask for user registration/login connected to MySQL database
+## Application Tier (BACKEND)
+The Application Tier with flask (A python framework)
 
 ## Data Tier
 Makes use of Snowflake Cloud Computing Data Warehouse
