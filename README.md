@@ -4,6 +4,8 @@
 3) METAGNE KAMGA MAIVA
 4) AMABO JOSHUA
 
+School-Group repository created for submission of mobile project contributions from group members and consequently observation and grading by the lecturer..
+
 # PERSONAL EXPENSE TRACKER WEBApp
 A three-tier implementation of an expense tracker
 ## Presentation Tier
