@@ -1,4 +1,4 @@
-Contributors
+## Name of Contributors
 1) KAMCHE YANN ARNAUD
 2) NKWI CYRIL AKINIMBON
 3) METAGNE KAMGA MAIVA
