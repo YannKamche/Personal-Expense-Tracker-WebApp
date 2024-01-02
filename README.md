@@ -1,3 +1,9 @@
+Contributors
+1) KAMCHE YANN ARNAUD
+2) NKWI CYRIL AKINIMBON
+3) METAGNE KAMGA MAIVA
+4) AMABO JOSHUA
+
 # PERSONAL EXPENSE TRACKER WEBApp
 A three-tier implementation of an expense tracker
 ## Presentation Tier
