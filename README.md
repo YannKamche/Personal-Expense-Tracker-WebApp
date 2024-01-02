@@ -2,8 +2,8 @@ School-Group repository created for the development of a Three-tier application,
 
 ## Name of Contributors
 ### 1) KAMCHE YANN ARNAUD
-### 2) NKWI CYRIL AKINIMBON
-### 3) METAGNE KAMGA MAIVA
+### 2) METAGNE KAMGA MAIVA
+### 3) NKWI CYRIL AKINIMBON
 ### 4) AMABO JOSHUA
 
 # PERSONAL EXPENSE TRACKER WEBApp
