@@ -1,10 +1,11 @@
+School-Group repository created for the development of a Three-tier application, project assigned by lecturer in the course DATA WAREHOUSE AND DATA MINING
+
 ## Name of Contributors
 1) KAMCHE YANN ARNAUD
 2) NKWI CYRIL AKINIMBON
 3) METAGNE KAMGA MAIVA
 4) AMABO JOSHUA
 
-School-Group repository created for submission of mobile project contributions from group members and consequently observation and grading by the lecturer..
 
 # PERSONAL EXPENSE TRACKER WEBApp
 A three-tier implementation of an expense tracker
