@@ -17,11 +17,11 @@ app = Flask(__name__)
 
 app.secret_key = 'a'
   
-app.config['SNOWFLAKE_ACCOUNT'] = 'nnuvqtc-fn75306'
-app.config['SNOWFLAKE_USER'] = 'YANN'
-app.config['SNOWFLAKE_PASSWORD'] = 'Snowflake2023'
-app.config['SNOWFLAKE_DATABASE'] = 'PERSONAL_EXPENSE_TRACKER'
-app.config['SNOWFLAKE_WAREHOUSE'] = None
+app.config['SNOWFLAKE_ACCOUNT'] = 'SNOWFLAKE_ACCOUNT'
+app.config['SNOWFLAKE_USER'] = 'SNOWFLAKE_USER'
+app.config['SNOWFLAKE_PASSWORD'] = 'SNOWFLAKE_PASSWORD'
+app.config['SNOWFLAKE_DATABASE'] = 'SNOWFLAKE_DATABASE'
+app.config['SNOWFLAKE_WAREHOUSE'] = 'SNOWFLAKE_WAREHOUSE'
 
 # Function to get Snowflake connection
 def get_snowflake_connection():
