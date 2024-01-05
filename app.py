@@ -190,7 +190,13 @@ def display():
     cursor.execute('SELECT * FROM expenses WHERE userid = %s ORDER BY date DESC', (str(session['id']),))
     expense = cursor.fetchall()
 
-    return render_template('display.html', expense=expense)
+    if expense is not None:
+        return render_template('display.html', expense=expense)
+    else:
+        # Handle the case where there are no records in the "expenses" table
+        error_message = "No expense records found."
+        return render_template("error.html", error_message=error_message)
+
 
                           
 
@@ -245,208 +251,212 @@ def update(id):
          
     
             
- #limit
-@app.route("/limit")
+#  #limit
+# @app.route("/limit")
+# def limit():
+#     return render_template("limit.html")
+
+# @app.route("/limitn") 
+# def limitn():
+#     cursor = get_snowflake_connection().cursor()
+#     cursor.execute('SELECT limitss FROM "LIMITS" ORDER BY "LIMITS".id DESC LIMIT 1')
+#     x = cursor.fetchone()
+
+#     if x is not None and len(x) > 0:
+#         s = x[0]
+#         return render_template("limit.html", y=s)
+#     else:
+#         # Handle the case where no results are returned from the query
+#         error_message = "No data found."
+#         return render_template("error.html", error_message=error_message)
+
+
+# # Add this route for the "/limitnum" endpoint
+# @app.route("/limitnum", methods=['POST'])
+# def limitnum():
+#     if request.method == "POST":
+#         number = request.form['number']
+#         cursor = get_snowflake_connection().cursor()
+#         cursor.execute('INSERT INTO "LIMITS" (limitss) VALUES (%s)', (number,))
+#         get_snowflake_connection().commit()
+#         return redirect('/limitn')
+#     else:
+#         # Handle the case where the request method is not POST
+#         error_message = "Invalid request method for /limitnum."
+#         return render_template("error.html", error_message=error_message)
+#limit
+@app.route("/limit" )
 def limit():
-    return render_template("limit.html")
+    return redirect('/limitn')
 
-@app.route("/limitn") 
-def limitn():
-    cursor = get_snowflake_connection().cursor()
-    cursor.execute('SELECT limitss FROM "LIMITS" ORDER BY "LIMITS".id DESC LIMIT 1')
-    x = cursor.fetchone()
-
-    if x is not None and len(x) > 0:
-        s = x[0]
-        return render_template("limit.html", y=s)
-    else:
-        # Handle the case where no results are returned from the query
-        error_message = "No data found."
-        return render_template("error.html", error_message=error_message)
-
-
-# Add this route for the "/limitnum" endpoint
 @app.route("/limitnum", methods=['POST'])
 def limitnum():
     if request.method == "POST":
         number = request.form['number']
         cursor = get_snowflake_connection().cursor()
-        cursor.execute('INSERT INTO "LIMITS" (limitss) VALUES (%s)', (number,))
+        cursor.execute('INSERT INTO "limits" VALUES (NULL, %s, %s)', (session['id'], number))
         get_snowflake_connection().commit()
         return redirect('/limitn')
+
+@app.route("/limitn")
+def limitn():
+    cursor = get_snowflake_connection().cursor()
+    cursor.execute('SELECT limitss FROM limits ORDER BY id DESC LIMIT 1')
+    x = cursor.fetchone()
+
+    if x is not None:
+        s = x[0]
+        return render_template("limit.html", y=s)
     else:
-        # Handle the case where the request method is not POST
-        error_message = "Invalid request method for /limitnum."
-        return render_template("error.html", error_message=error_message)
+        # Handle the case where there are no records in the "limits" table
+        s = "No data found"
+        return render_template("limit.html", y=s)
+
 
 
 #REPORT
 
 @app.route("/today")
 def today():
-      cursor = get_snowflake_connection().cursor()
-      cursor.execute('SELECT TIME(date)   , amount FROM expenses  WHERE userid = %s AND DATE(date) = DATE(NOW()) ',(str(session['id'])))
-      texpense = cursor.fetchall()
-      print(texpense)
-      
-      cursor = get_snowflake_connection().cursor()
-      cursor.execute('SELECT * FROM expenses WHERE userid = % s AND DATE(date) = DATE(NOW()) AND date ORDER BY `expenses`.`date` DESC',(str(session['id'])))
-      expense = cursor.fetchall()
-  
-      total=0
-      t_food=0
-      t_entertainment=0
-      t_business=0
-      t_rent=0
-      t_EMI=0
-      t_other=0
- 
-     
-      for x in expense:
-          total += x[4]
-          if x[6] == "food":
-              t_food += x[4]
-            
-          elif x[6] == "entertainment":
-              t_entertainment  += x[4]
-        
-          elif x[6] == "business":
-              t_business  += x[4]
-          elif x[6] == "rent":
-              t_rent  += x[4]
-           
-          elif x[6] == "EMI":
-              t_EMI  += x[4]
-         
-          elif x[6] == "other":
-              t_other  += x[4]
-            
-      print(total)
-        
-      print(t_food)
-      print(t_entertainment)
-      print(t_business)
-      print(t_rent)
-      print(t_EMI)
-      print(t_other)
+    try:
+        # Fetch time and amount
+        with get_snowflake_connection().cursor() as cursor:
+            cursor.execute('SELECT TIME(date), amount FROM expenses WHERE userid = %s AND DATE(date) = CURRENT_DATE', (str(session['id']),))
+            texpense = cursor.fetchall()
+            print(texpense)
 
+        # Fetch all columns and order by date
+        with get_snowflake_connection().cursor() as cursor:
+            cursor.execute('SELECT * FROM expenses WHERE userid = %s AND DATE(date) = CURRENT_DATE ORDER BY date DESC', (str(session['id']),))
+            expense = cursor.fetchall()
 
-     
-      return render_template("today.html", texpense = texpense, expense = expense,  total = total ,
-                           t_food = t_food,t_entertainment =  t_entertainment,
-                           t_business = t_business,  t_rent =  t_rent, 
-                           t_EMI =  t_EMI,  t_other =  t_other )
+        total = 0
+        t_food = 0
+        t_entertainment = 0
+        t_business = 0
+        t_rent = 0
+        t_EMI = 0
+        t_other = 0
+
+        for x in expense:
+            total += x[4]
+            if x[6] == "food":
+                t_food += x[4]
+            elif x[6] == "entertainment":
+                t_entertainment += x[4]
+            elif x[6] == "business":
+                t_business += x[4]
+            elif x[6] == "rent":
+                t_rent += x[4]
+            elif x[6] == "EMI":
+                t_EMI += x[4]
+            elif x[6] == "other":
+                t_other += x[4]
+
+        print(total, t_food, t_entertainment, t_business, t_rent, t_EMI, t_other)
+
+        return render_template("today.html", texpense=texpense, expense=expense, total=total,
+                               t_food=t_food, t_entertainment=t_entertainment,
+                               t_business=t_business, t_rent=t_rent,
+                               t_EMI=t_EMI, t_other=t_other)
+
+    except Exception as e:
+        print(str(e))
+        return render_template('error.html', error=str(e))
      
 
 @app.route("/month")
 def month():
-      cursor = get_snowflake_connection().cursor()
-      cursor.execute('SELECT DATE(date), SUM(amount) FROM expenses WHERE userid= %s AND MONTH(DATE(date))= MONTH(now()) GROUP BY DATE(date) ORDER BY DATE(date) ',(str(session['id'])))
-      texpense = cursor.fetchall()
-      print(texpense)
-      
-      cursor = get_snowflake_connection().cursor()
-      cursor.execute('SELECT * FROM expenses WHERE userid = % s AND MONTH(DATE(date))= MONTH(now()) AND date ORDER BY `expenses`.`date` DESC',(str(session['id'])))
-      expense = cursor.fetchall()
-  
-      total=0
-      t_food=0
-      t_entertainment=0
-      t_business=0
-      t_rent=0
-      t_EMI=0
-      t_other=0
- 
-     
-      for x in expense:
-          total += x[4]
-          if x[6] == "food":
-              t_food += x[4]
-            
-          elif x[6] == "entertainment":
-              t_entertainment  += x[4]
-        
-          elif x[6] == "business":
-              t_business  += x[4]
-          elif x[6] == "rent":
-              t_rent  += x[4]
-           
-          elif x[6] == "EMI":
-              t_EMI  += x[4]
-         
-          elif x[6] == "other":
-              t_other  += x[4]
-            
-      print(total)
-        
-      print(t_food)
-      print(t_entertainment)
-      print(t_business)
-      print(t_rent)
-      print(t_EMI)
-      print(t_other)
+    try:
+        cursor = get_snowflake_connection().cursor()
+        cursor.execute('SELECT DATE(date), SUM(amount) FROM expenses WHERE userid= %s AND MONTH(DATE_TRUNC(\'MONTH\', CURRENT_DATE())) = MONTH(DATE_TRUNC(\'MONTH\', date)) GROUP BY DATE(date) ORDER BY DATE(date) ', (str(session['id']),))
+        texpense = cursor.fetchall()
+        print(texpense)
+
+        cursor = get_snowflake_connection().cursor()
+        cursor.execute('SELECT * FROM expenses WHERE userid = %s AND MONTH(DATE_TRUNC(\'MONTH\', CURRENT_DATE())) = MONTH(DATE_TRUNC(\'MONTH\', date)) ORDER BY date DESC', (str(session['id']),))
+        expense = cursor.fetchall()
+
+        total = 0
+        t_food = 0
+        t_entertainment = 0
+        t_business = 0
+        t_rent = 0
+        t_EMI = 0
+        t_other = 0
+
+        for x in expense:
+            total += x[4]
+            if x[6] == "food":
+                t_food += x[4]
+            elif x[6] == "entertainment":
+                t_entertainment += x[4]
+            elif x[6] == "business":
+                t_business += x[4]
+            elif x[6] == "rent":
+                t_rent += x[4]
+            elif x[6] == "EMI":
+                t_EMI += x[4]
+            elif x[6] == "other":
+                t_other += x[4]
+
+        print(total, t_food, t_entertainment, t_business, t_rent, t_EMI, t_other)
+
+        return render_template("today.html", texpense=texpense, expense=expense, total=total,
+                               t_food=t_food, t_entertainment=t_entertainment,
+                               t_business=t_business, t_rent=t_rent,
+                               t_EMI=t_EMI, t_other=t_other)
+
+    except Exception as e:
+        print(str(e))
+        return render_template('error.html', error=str(e))
 
 
-     
-      return render_template("today.html", texpense = texpense, expense = expense,  total = total ,
-                           t_food = t_food,t_entertainment =  t_entertainment,
-                           t_business = t_business,  t_rent =  t_rent, 
-                           t_EMI =  t_EMI,  t_other =  t_other )
-         
 @app.route("/year")
 def year():
-      cursor = get_snowflake_connection().cursor()
-      cursor.execute('SELECT MONTH(date), SUM(amount) FROM expenses WHERE userid= %s AND YEAR(DATE(date))= YEAR(now()) GROUP BY MONTH(date) ORDER BY MONTH(date) ',(str(session['id'])))
-      texpense = cursor.fetchall()
-      print(texpense)
-      
-      cursor = get_snowflake_connection().cursor()
-      cursor.execute('SELECT * FROM expenses WHERE userid = % s AND YEAR(DATE(date))= YEAR(now()) AND date ORDER BY `expenses`.`date` DESC',(str(session['id'])))
-      expense = cursor.fetchall()
-  
-      total=0
-      t_food=0
-      t_entertainment=0
-      t_business=0
-      t_rent=0
-      t_EMI=0
-      t_other=0
- 
-     
-      for x in expense:
-          total += x[4]
-          if x[6] == "food":
-              t_food += x[4]
-            
-          elif x[6] == "entertainment":
-              t_entertainment  += x[4]
-        
-          elif x[6] == "business":
-              t_business  += x[4]
-          elif x[6] == "rent":
-              t_rent  += x[4]
-           
-          elif x[6] == "EMI":
-              t_EMI  += x[4]
-         
-          elif x[6] == "other":
-              t_other  += x[4]
-            
-      print(total)
-        
-      print(t_food)
-      print(t_entertainment)
-      print(t_business)
-      print(t_rent)
-      print(t_EMI)
-      print(t_other)
+    try:
+        cursor = get_snowflake_connection().cursor()
+        cursor.execute('SELECT MONTH(date), SUM(amount) FROM expenses WHERE userid= %s AND YEAR(DATE_TRUNC(\'YEAR\', CURRENT_DATE())) = YEAR(DATE_TRUNC(\'YEAR\', date)) GROUP BY MONTH(date) ORDER BY MONTH(date) ', (str(session['id']),))
+        texpense = cursor.fetchall()
+        print(texpense)
 
+        cursor = get_snowflake_connection().cursor()
+        cursor.execute('SELECT * FROM expenses WHERE userid = %s AND YEAR(DATE_TRUNC(\'YEAR\', CURRENT_DATE())) = YEAR(DATE_TRUNC(\'YEAR\', date)) ORDER BY date DESC', (str(session['id']),))
+        expense = cursor.fetchall()
 
-     
-      return render_template("today.html", texpense = texpense, expense = expense,  total = total ,
-                           t_food = t_food,t_entertainment =  t_entertainment,
-                           t_business = t_business,  t_rent =  t_rent, 
-                           t_EMI =  t_EMI,  t_other =  t_other )
+        total = 0
+        t_food = 0
+        t_entertainment = 0
+        t_business = 0
+        t_rent = 0
+        t_EMI = 0
+        t_other = 0
+
+        for x in expense:
+            total += x[4]
+            if x[6] == "food":
+                t_food += x[4]
+            elif x[6] == "entertainment":
+                t_entertainment += x[4]
+            elif x[6] == "business":
+                t_business += x[4]
+            elif x[6] == "rent":
+                t_rent += x[4]
+            elif x[6] == "EMI":
+                t_EMI += x[4]
+            elif x[6] == "other":
+                t_other += x[4]
+
+        print(total, t_food, t_entertainment, t_business, t_rent, t_EMI, t_other)
+
+        return render_template("today.html", texpense=texpense, expense=expense, total=total,
+                               t_food=t_food, t_entertainment=t_entertainment,
+                               t_business=t_business, t_rent=t_rent,
+                               t_EMI=t_EMI, t_other=t_other)
+
+    except Exception as e:
+        print(str(e))
+        return render_template('error.html', error=str(e))
 
 #log-out
 
