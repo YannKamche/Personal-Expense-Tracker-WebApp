@@ -245,45 +245,6 @@ def update(id):
       return redirect("/display")
      
       
-
-            
- 
-         
-    
-            
-#  #limit
-# @app.route("/limit")
-# def limit():
-#     return render_template("limit.html")
-
-# @app.route("/limitn") 
-# def limitn():
-#     cursor = get_snowflake_connection().cursor()
-#     cursor.execute('SELECT limitss FROM "LIMITS" ORDER BY "LIMITS".id DESC LIMIT 1')
-#     x = cursor.fetchone()
-
-#     if x is not None and len(x) > 0:
-#         s = x[0]
-#         return render_template("limit.html", y=s)
-#     else:
-#         # Handle the case where no results are returned from the query
-#         error_message = "No data found."
-#         return render_template("error.html", error_message=error_message)
-
-
-# # Add this route for the "/limitnum" endpoint
-# @app.route("/limitnum", methods=['POST'])
-# def limitnum():
-#     if request.method == "POST":
-#         number = request.form['number']
-#         cursor = get_snowflake_connection().cursor()
-#         cursor.execute('INSERT INTO "LIMITS" (limitss) VALUES (%s)', (number,))
-#         get_snowflake_connection().commit()
-#         return redirect('/limitn')
-#     else:
-#         # Handle the case where the request method is not POST
-#         error_message = "Invalid request method for /limitnum."
-#         return render_template("error.html", error_message=error_message)
 #limit
 @app.route("/limit" )
 def limit():
