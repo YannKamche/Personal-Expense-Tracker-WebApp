@@ -16,12 +16,21 @@ app = Flask(__name__)
 
 app.secret_key = 'a'
   
-app.config['MYSQL_HOST'] = 'remotemysql.com'
-app.config['MYSQL_USER'] = 'D2DxDUPBii'
-app.config['MYSQL_PASSWORD'] = 'r8XBO4GsMz'
-app.config['MYSQL_DB'] = 'D2DxDUPBii'
+app.config['SNOWFLAKE_ACCOUNT'] = 'your_snowflake_account'
+app.config['SNOWFLAKE_USER'] = 'your_snowflake_user'
+app.config['SNOWFLAKE_PASSWORD'] = 'your_snowflake_password'
+app.config['SNOWFLAKE_DATABASE'] = 'your_snowflake_database'
+app.config['SNOWFLAKE_WAREHOUSE'] = 'your_snowflake_warehouse'
 
-mysql = MySQL(app)
+def get_snowflake_connection():
+    connection = connect(
+        account=app.config['SNOWFLAKE_ACCOUNT'],
+        user=app.config['Yann'],
+        password=app.config['Snowflake2023'],
+        database=app.config['PERSONAL_EXPENSE_TRACKER'],
+        warehouse=app.config['SNOWFLAKE_WAREHOUSE'],
+    )
+    return connection
 
 
 #HOME--PAGE
