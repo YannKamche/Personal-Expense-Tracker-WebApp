@@ -1,18 +1,27 @@
-School-Group repository created for the development of a Three-tier application, project assigned by the lecturer in the course DATA WAREHOUSE AND DATA MINING
+# Personal Expense Tracker Web App
 
-## Name of Contributors
-### 1) KAMCHE YANN ARNAUD
-### 2) METAGNE KAMGA MAIVA
-### 3) NKWI CYRIL AKINIMBON
-### 4) AMABO JOSHUA
+This Flask web application helps you track your personal expenses and visualizes your spending patterns. It uses Snowflake as the backend database for storing expense data.
 
-# PERSONAL EXPENSE TRACKER WEBApp
-A three-tier implementation of an expense tracker
-## Presentation Tier (FRONTEND)
-The presentation tier was built with html, css and JavaScript
+## Snowflake Credentials Setup
 
-## Application Tier (BACKEND)
-The Application Tier with flask (A python framework)
+Before running the application, you need to set up your Snowflake credentials. Follow these steps to create a `snowflake_credentials.json` file:
 
-## Data Tier
-Makes use of Snowflake Cloud Computing Data Warehouse
+### Prerequisites
+
+- Snowflake account credentials (account name, username, password)
+- Information about the Snowflake database and warehouse
+
+### Steps to Create snowflake_credentials.json
+
+1. Open a text editor (e.g., Notepad, VS Code, etc.).
+
+2. Create a new JSON file and copy the following template:
+
+   ```json
+   {
+       "SNOWFLAKE_ACCOUNT": "your_account_name",
+       "SNOWFLAKE_USER": "your_username",
+       "SNOWFLAKE_PASSWORD": "your_password",
+       "SNOWFLAKE_DATABASE": "your_database_name",
+       "SNOWFLAKE_WAREHOUSE": "your_warehouse_name_or_null"
+   }
