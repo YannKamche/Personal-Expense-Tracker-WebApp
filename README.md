@@ -62,13 +62,14 @@ pip install -r requirements.txt
 
 ### 2. Activate your virtual environment:
 ```bash
-source venv/bin/activate  # for Linux or macOS
+source venv/bin/activate
 ```
+# for Linux or macOS
 # or
 ```bash
-.\venv\Scripts\activate   # for Windows
+.\venv\Scripts\activate   
 ```
-
+# for Windows
 ### 3. Run the Flask application:
 ```bash
 python app.py
