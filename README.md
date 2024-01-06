@@ -1,3 +1,10 @@
+School-Group repository created for the development of a Three-tier application, project assigned by the lecturer in the course DATA WAREHOUSE AND DATA MINING 
+## Name of Contributors 
+### 1) KAMCHE YANN ARNAUD 
+### 2) METAGNE KAMGA MAIVA
+### 3) NKWI CYRIL AKINIMBON
+### 4) AMABO JOSHUA
+
 # Personal Expense Tracker Web App
 
 This Flask web application helps you track your personal expenses and visualizes your spending patterns. It uses Snowflake as the backend database for storing expense data.
