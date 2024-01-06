@@ -10,6 +10,7 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 import snowflake.connector
+import json
 
 
 app = Flask(__name__)
@@ -17,22 +18,26 @@ app = Flask(__name__)
 
 app.secret_key = 'a'
   
-app.config['SNOWFLAKE_ACCOUNT'] = 'SNOWFLAKE_ACCOUNT'
-app.config['SNOWFLAKE_USER'] = 'SNOWFLAKE_USER'
-app.config['SNOWFLAKE_PASSWORD'] = 'SNOWFLAKE_PASSWORD'
-app.config['SNOWFLAKE_DATABASE'] = 'SNOWFLAKE_DATABASE'
-app.config['SNOWFLAKE_WAREHOUSE'] = 'SNOWFLAKE_WAREHOUSE'
+app.config['SNOWFLAKE_ACCOUNT'] = 'nnuvqtc-fn75306'
+app.config['SNOWFLAKE_USER'] = 'YANN'
+app.config['SNOWFLAKE_PASSWORD'] = 'Snowflake2023'
+app.config['SNOWFLAKE_DATABASE'] = 'PERSONAL_EXPENSE_TRACKER'
+app.config['SNOWFLAKE_WAREHOUSE'] = None
 
 # Function to get Snowflake connection
 def get_snowflake_connection():
+    with open('snowflake_credentials.json') as credentials_file:
+        credentials = json.load(credentials_file)
+
     connection = snowflake.connector.connect(
-        account=app.config['SNOWFLAKE_ACCOUNT'],
-        user=app.config['SNOWFLAKE_USER'],
-        password=app.config['SNOWFLAKE_PASSWORD'],
-        database=app.config['SNOWFLAKE_DATABASE'],
-        warehouse=app.config['SNOWFLAKE_WAREHOUSE'],
+        account=credentials['SNOWFLAKE_ACCOUNT'],
+        user=credentials['SNOWFLAKE_USER'],
+        password=credentials['SNOWFLAKE_PASSWORD'],
+        database=credentials['SNOWFLAKE_DATABASE'],
+        warehouse=credentials['SNOWFLAKE_WAREHOUSE'],
     )
     return connection
+
 
 # Query execution using Snowflake connection
 def execute_snowflake_query(query, params=None):
