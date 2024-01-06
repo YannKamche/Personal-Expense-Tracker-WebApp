@@ -56,7 +56,7 @@ In your Flask application code, the connection is established using the followin
 
 Running the Application
 ### 1. Install dependencies:
-pip install -r requirements.txt
+'pip install -r requirements.txt'
 
 ### 2. Activate your virtual environment:
 source venv/bin/activate  # for Linux or macOS
