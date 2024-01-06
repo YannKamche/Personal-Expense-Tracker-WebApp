@@ -61,15 +61,23 @@ pip install -r requirements.txt
 ```
 
 ### 2. Activate your virtual environment:
+```bash
 source venv/bin/activate  # for Linux or macOS
+```
 # or
+```bash
 .\venv\Scripts\activate   # for Windows
+```
 
 ### 3. Run the Flask application:
+```bash
 python app.py
+```
 
 ### 4. Alternatively, you can use the following command:
-   python -m flask run
+```
+python -m flask run
+```
    
 The application will be accessible at http://localhost:5000. Open this URL in your web browser to start tracking your expenses.
 
