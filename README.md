@@ -48,18 +48,18 @@ def get_snowflake_connection():
     return connection
 
 Running the Application
-1. Install dependencies:
+### 1. Install dependencies:
 pip install -r requirements.txt
 
-2. Activate your virtual environment:
+### 2. Activate your virtual environment:
 source venv/bin/activate  # for Linux or macOS
 # or
 .\venv\Scripts\activate   # for Windows
 
-3. Run the Flask application:
+### 3. Run the Flask application:
 python app.py
 
-4. Alternatively, you can use the following command:
+### 4. Alternatively, you can use the following command:
    python -m flask run
    
 The application will be accessible at http://localhost:5000. Open this URL in your web browser to start tracking your expenses.
