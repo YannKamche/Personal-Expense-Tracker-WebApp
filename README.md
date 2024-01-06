@@ -25,3 +25,6 @@ Before running the application, you need to set up your Snowflake credentials. F
        "SNOWFLAKE_DATABASE": "your_database_name",
        "SNOWFLAKE_WAREHOUSE": "your_warehouse_name_or_null"
    }
+   Replace the placeholder values (your_account_name, your_username, your_password, your_database_name, your_warehouse_name_or_null) with your actual Snowflake credentials. The SNOWFLAKE_WAREHOUSE can be set to null if not applicable.
+
+Save the file with the name snowflake_credentials.json. Ensure that the file extension is .json.
