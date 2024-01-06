@@ -63,3 +63,11 @@ python app.py
    python -m flask run
    
 The application will be accessible at http://localhost:5000. Open this URL in your web browser to start tracking your expenses.
+
+Additional Information
+Feel free to customize the application according to your needs.
+If you encounter any issues or have further questions, please reach out.
+Happy expense tracking!
+
+This modification includes information about activating a virtual environment and running the Flask application using `python -m flask run`. Adjust the instructions as needed based on your specific virtual environment setup.
+
