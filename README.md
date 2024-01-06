@@ -61,17 +61,17 @@ pip install -r requirements.txt
 ```
 
 ### 2. Activate your virtual environment:
+# for Linux or macOS
 ```bash
 source venv/bin/activate
 ```
-# for Linux or macOS
 # or
-```bash
+# for Windows
+```
 .\venv\Scripts\activate   
 ```
-# for Windows
 ### 3. Run the Flask application:
-```bash
+```
 python app.py
 ```
 
@@ -87,5 +87,4 @@ Feel free to customize the application according to your needs.
 If you encounter any issues or have further questions, please reach out.
 Happy expense tracking!
 
-This modification includes information about activating a virtual environment and running the Flask application using `python -m flask run`. Adjust the instructions as needed based on your specific virtual environment setup.
 
