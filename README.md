@@ -34,8 +34,6 @@ The snowflake_credentials.json file will be used by the Flask application to est
 
 In your Flask application code, the connection is established using the following function:
 
-python
-Copy code
 def get_snowflake_connection():
     with open('snowflake_credentials.json') as credentials_file:
         credentials = json.load(credentials_file)
@@ -48,13 +46,12 @@ def get_snowflake_connection():
         warehouse=credentials['SNOWFLAKE_WAREHOUSE'],
     )
     return connection
+
 Running the Application
 Install dependencies:
 
-bash
-Copy code
 pip install -r requirements.txt
-Run the Flask application:
+
 
 bash
 Copy code
