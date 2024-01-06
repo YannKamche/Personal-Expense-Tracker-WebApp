@@ -28,3 +28,35 @@ Before running the application, you need to set up your Snowflake credentials. F
    Replace the placeholder values (your_account_name, your_username, your_password, your_database_name, your_warehouse_name_or_null) with your actual Snowflake credentials. The SNOWFLAKE_WAREHOUSE can be set to null if not applicable.
 
 Save the file with the name snowflake_credentials.json. Ensure that the file extension is .json.
+
+Usage in Flask Application
+The snowflake_credentials.json file will be used by the Flask application to establish a connection to Snowflake. Make sure to place this file in the root directory of your Flask application.
+
+In your Flask application code, the connection is established using the following function:
+
+python
+Copy code
+def get_snowflake_connection():
+    with open('snowflake_credentials.json') as credentials_file:
+        credentials = json.load(credentials_file)
+
+    connection = snowflake.connector.connect(
+        account=credentials['SNOWFLAKE_ACCOUNT'],
+        user=credentials['SNOWFLAKE_USER'],
+        password=credentials['SNOWFLAKE_PASSWORD'],
+        database=credentials['SNOWFLAKE_DATABASE'],
+        warehouse=credentials['SNOWFLAKE_WAREHOUSE'],
+    )
+    return connection
+Running the Application
+Install dependencies:
+
+bash
+Copy code
+pip install -r requirements.txt
+Run the Flask application:
+
+bash
+Copy code
+python app.py
+The application will be accessible at http://localhost:5000. Open this URL in your web browser to start tracking your expenses.
